@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="税费费率" >
+        <EditTextPreference
+            android:defaultValue="@string/ptqsValue"
+            android:inputType="numberDecimal"
+            android:key="@string/ptqs"
+            android:title="普通住宅契税" />
+        <EditTextPreference
+            android:defaultValue="@string/xy90qsValue"
+            android:inputType="numberDecimal"
+            android:key="@string/xy90qs"
+            android:title="90平米以下住宅契税" />
+        <EditTextPreference
+            android:defaultValue="@string/fwyqsValue"
+            android:inputType="numberDecimal"
+            android:key="@string/fwyqs"
+            android:summary="非唯一住宅、大于140平米住宅"
+            android:title="其他类型契税" />
+        <EditTextPreference
+            android:defaultValue="@string/yysValue"
+            android:inputType="numberDecimal"
+            android:key="@string/yys"
+            android:title="营业税" />
+        <EditTextPreference
+            android:defaultValue="@string/grsdsValue"
+            android:inputType="numberDecimal"
+            android:key="@string/grsds"
+            android:title="个人所得税" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="贷款相关费率" >
+        <EditTextPreference
+            android:defaultValue="@string/dbfValue"
+            android:inputType="numberDecimal"
+            android:key="@string/dbf"
+            android:title="担保费" />
+        <EditTextPreference
+            android:defaultValue="@string/pgfValue"
+            android:inputType="numberDecimal"
+            android:key="@string/pgf"
+            android:title="评估费" />
+        <EditTextPreference
+            android:defaultValue="@string/sydkValue"
+            android:inputType="numberDecimal"
+            android:key="@string/sydk"
+            android:title="商业贷款" />
+        <EditTextPreference
+            android:defaultValue="@string/gjjdkValue"
+            android:inputType="numberDecimal"
+            android:key="@string/gjjdk"
+            android:title="公积金贷款" />
+    </PreferenceCategory>
+
+    <EditTextPreference
+        android:defaultValue="@string/zjfValue"
+        android:inputType="numberDecimal"
+        android:key="@string/zjf"
+        android:title="中介费" />
+
+</PreferenceScreen>

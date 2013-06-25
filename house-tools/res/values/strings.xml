@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">二手房房贷计算</string>
+    <string name="action_settings">设置</string>
+    <!-- key -->
+    <string name="ptqs">ptqs</string>
+    <string name="xy90qs">xy90qs</string>
+    <string name="fwyqs">fwyqs</string>
+    <string name="yys">yys</string>
+    <string name="grsds">grsds</string>
+    <string name="dbf">dbf</string>
+    <string name="pgf">pgf</string>
+    <string name="zjf">zjf</string>
+    <string name="sydk">sydk</string>
+    <string name="gjjdk">gjjdk</string>
+    <!-- value -->
+    <string name="ptqsValue">1.5</string>
+    <string name="xy90qsValue">1.0</string>
+    <string name="fwyqsValue">3.0</string>
+    <string name="yysValue">5.5</string>
+    <string name="grsdsValue">1.0</string>
+    <string name="dbfValue">1.0</string>
+    <string name="pgfValue">0.5</string>
+    <string name="zjfValue">2</string>
+    <string name="sydkValue">6.55</string>
+    <string name="gjjdkValue">4.5</string>
+
+</resources>
