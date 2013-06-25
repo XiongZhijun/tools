@@ -76,13 +76,13 @@ public class MainActivity extends Activity {
 		// 杂费
 		double zf = getValue(R.id.zf);
 		// 还款次数
-		double times = getValue(R.id.hkTimes);
+		double times = getValue(R.id.hkTimes) * 12;
 
 		// 贷款评估总价
 		double dkpgzj = floorSpace * bankOfEvaluatingPrice;
 		setText(R.id.dkpgzj, dkpgzj);
 		// 贷款总额
-		double dkze = dkpgzj * loanRatio;
+		double dkze = Math.floor(dkpgzj * loanRatio / 10000) * 10000;
 		setText(R.id.loanAmount, dkze);
 
 		// 首付
