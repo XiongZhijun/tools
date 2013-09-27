@@ -17,9 +17,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.mobi.android.framework.utils.FileUtils;
-import com.mobi.android.framework.utils.StringUtils;
-
 public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
