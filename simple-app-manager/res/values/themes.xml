@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="android:windowTitleSize">45dp</item>
+        <item name="android:windowActionBar">true</item>
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
+        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
+        <item name="android:buttonStyle">@style/ButtonStyle</item>
+        <item name="android:borderlessButtonStyle">@style/ButtonStyle</item>
+    </style>
+
+    <style name="ActivityTheme">
+        <item name="android:padding">10dip</item>
+        <item name="android:background">@color/ActivityBackground</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+
+</resources>
