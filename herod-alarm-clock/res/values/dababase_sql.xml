@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="DatabaseName">AlarmClockDB</string>
+    <string name="HerodOrder_1">
+<![CDATA[
+CREATE TABLE ALARM_CLOCK (ID INTEGER PRIMARY KEY AUTOINCREMENT, ALARM_TIME TEXT, REPETITION_PERIOD INTEGER, 
+	TAG TEXT, RING TEXT, VIBRATION INTEGER, VOLUME_CRESCENDO INTEGER, REPEAT_INTERVAL INTEGER, ENABLED INTEGER);
+
+	]]>
+    </string>
+
+</resources>

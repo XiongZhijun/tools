@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="常规设置" >
+        <EditTextPreference
+            android:inputType="time"
+            android:key="alarmTime"
+            android:persistent="false"
+            android:title="时间" />
+
+        <MultiSelectListPreference
+            android:defaultValue="@array/repetitionPeriodDefaultValues"
+            android:entries="@array/repetitionPeriodEntries"
+            android:entryValues="@array/repetitionPeriodEntryValues"
+            android:key="repetitionPeriod"
+            android:persistent="false"
+            android:title="重复" />
+
+        <EditTextPreference
+            android:key="tag"
+            android:persistent="false"
+            android:title="标签" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="铃声和音量设置" >
+    </PreferenceCategory>
+
+</PreferenceScreen>
