@@ -3,15 +3,16 @@
  */
 package org.herod.simpleweather;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 /**
  * @author Xiong Zhijun
  * @email hust.xzj@gmail.com
- *
+ * 
  */
 public class MainActivity extends Activity {
 
@@ -19,6 +20,10 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		startService(new Intent(this, WeatherService.class));
+	}
+
+	public void load(View v) {
 		startService(new Intent(this, WeatherService.class));
 	}
 

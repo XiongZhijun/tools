@@ -65,7 +65,7 @@ public class CityWeatherTypeAdapter implements JsonDeserializer<CityWeather> {
 	}
 
 	private String getImageUrl(JsonObject jsonObject, int i) {
-		String BASE_URL = "http://www.weather.com.cn/m2/i/icon_weather/29x20/%1$s%2$02d.gif";
+		String BASE_URL = "%1$s%2$02d";
 		String type = i % 2 == 1 ? "d" : "n";
 		try {
 			return String.format(BASE_URL, type, jsonObject.get("img" + i)

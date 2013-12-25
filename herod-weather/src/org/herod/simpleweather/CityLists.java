@@ -18,6 +18,9 @@ import android.util.Log;
  */
 public class CityLists {
 	public static String findCityId(Context context, String city) {
+		if (city == null || city.length() == 0) {
+			return null;
+		}
 		BufferedReader fileReader = null;
 		try {
 
@@ -26,7 +29,7 @@ public class CityLists {
 			String line;
 			while ((line = fileReader.readLine()) != null) {
 				String[] splits = line.split(",");
-				if (splits.length == 4 && splits[2].equals(city)) {
+				if (splits.length == 4 && city.contains(splits[2])) {
 					return splits[0];
 				}
 			}

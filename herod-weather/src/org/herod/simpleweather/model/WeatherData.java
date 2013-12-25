@@ -4,7 +4,10 @@
  */
 package org.herod.simpleweather.model;
 
+import java.util.Calendar;
 import java.util.Date;
+
+import org.herod.simpleweather.ResourcesUtils;
 
 /**
  * @author Xiong Zhijun
@@ -83,6 +86,39 @@ public class WeatherData {
 
 	public void setNightTitle(String nightTitle) {
 		this.nightTitle = nightTitle;
+	}
+
+	public String getContentTitle() {
+		StringBuilder sb = new StringBuilder();
+		if (isNight()) {
+			sb.append(getNightTitle());
+		} else {
+			sb.append(getDayTitle());
+		}
+		sb.append("，").append(temperature);
+		return sb.toString();
+	}
+
+	public String getContentInfo() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getWind());
+		return sb.toString();
+	}
+
+	private boolean isNight() {
+		Calendar calendar = Calendar.getInstance();
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+		return hour >= 18;
+	}
+
+	public int getCurrentPictureResource() {
+		if (isNight()) {
+			return ResourcesUtils.getResourcesIdByType(getNightPictureUrl(),
+					"drawable");
+		} else {
+			return ResourcesUtils.getResourcesIdByType(getDayPictureUrl(),
+					"drawable");
+		}
 	}
 
 }

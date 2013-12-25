@@ -46,4 +46,8 @@ public class CityWeather {
 		this.weatherDatas = weatherDatas;
 	}
 
+	public WeatherData getTodayWeather() {
+		return weatherDatas.size() > 0 ? weatherDatas.get(0) : null;
+	}
+
 }
