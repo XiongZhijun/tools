@@ -54,6 +54,8 @@ public class LocationHelper {
 
 	public static interface OnLocationSuccessListener {
 		void onSuccess(LocationHelper locationHelper, BDLocation location);
+
+		void onFail(LocationHelper locationHelper, BDLocation location);
 	}
 
 	class SimpleBDLocationListener implements BDLocationListener {
@@ -61,6 +63,7 @@ public class LocationHelper {
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 			if (isLocactionFailed(location)) {
+				listener.onFail(LocationHelper.this, location);
 				return;
 			}
 			listener.onSuccess(LocationHelper.this, location);
@@ -76,6 +79,7 @@ public class LocationHelper {
 		return location == null
 				|| (location.getLocType() != 61 && location.getLocType() != 65
 						&& location.getLocType() != 66
-						&& location.getLocType() != 68 && location.getLocType() != 161);
+						&& location.getLocType() != 68 && location.getLocType() != 161)
+				|| location.getCity() == null;
 	}
 }

@@ -9,7 +9,10 @@ import java.util.List;
 import org.herod.simpleweather.model.CityWeather;
 import org.herod.simpleweather.model.WeatherData;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -30,6 +33,8 @@ import android.widget.TextView;
  */
 public class CityWeatherFragment extends Fragment implements
 		LoaderCallbacks<CityWeather> {
+	/**  */
+	private static final int LOADER_ID = 1001;
 	private static final String CITY = "city";
 	private ListView weatherListView;
 
@@ -50,7 +55,7 @@ public class CityWeatherFragment extends Fragment implements
 	@Override
 	public void onStart() {
 		super.onStart();
-		getLoaderManager().initLoader(1001, null, this);
+		getLoaderManager().initLoader(LOADER_ID, null, this);
 	}
 
 	@Override
@@ -62,6 +67,24 @@ public class CityWeatherFragment extends Fragment implements
 	@Override
 	public void onLoadFinished(Loader<CityWeather> loader,
 			CityWeather cityWeather) {
+		if (cityWeather == null) {
+			OnClickListener retryListener = new OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					getLoaderManager().restartLoader(LOADER_ID, null,
+							CityWeatherFragment.this);
+				}
+			};
+			OnClickListener cancelListener = new OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					getActivity().finish();
+				}
+			};
+			new AlertDialog.Builder(getActivity()).setTitle("提示")
+					.setMessage("读取天气数据失败！")
+					.setNegativeButton("退出程序", cancelListener)
+					.setPositiveButton("重试", retryListener).create().show();
+			return;
+		}
 		weatherListView.setAdapter(new WeatherAdapater(getActivity(),
 				cityWeather));
 	}
@@ -117,8 +140,10 @@ public class CityWeatherFragment extends Fragment implements
 			WeatherData weatherData = weatherDatas.get(position);
 			ImageView dayImageView = (ImageView) v.findViewById(R.id.dayImage);
 			dayImageView.setImageResource(weatherData.getDayPictureResource());
-			ImageView nightImageView = (ImageView) v.findViewById(R.id.nightImage);
-			nightImageView.setImageResource(weatherData.getNightPictureResource());
+			ImageView nightImageView = (ImageView) v
+					.findViewById(R.id.nightImage);
+			nightImageView.setImageResource(weatherData
+					.getNightPictureResource());
 			setText(v, R.id.date, weatherData.getDateText());
 			setText(v, R.id.title, weatherData.getContentTitle());
 			setText(v, R.id.content, weatherData.getContentInfo());
@@ -140,8 +165,12 @@ public class CityWeatherFragment extends Fragment implements
 		}
 
 		public CityWeather loadInBackground() {
-			return WeatherContext.getWeatherLoader().getWeatherByCityName(
-					getContext(), city);
+			try {
+				return WeatherContext.getWeatherLoader().getWeatherByCityName(
+						getContext(), city);
+			} catch (RuntimeException e) {
+				return null;
+			}
 		}
 
 		@Override

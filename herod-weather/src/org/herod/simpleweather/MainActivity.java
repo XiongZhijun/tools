@@ -10,8 +10,11 @@ import java.util.List;
 import org.herod.simpleweather.LocationHelper.OnLocationSuccessListener;
 import org.herod.simpleweather.widgets.TabPageIndicator;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -67,6 +70,25 @@ public class MainActivity extends FragmentActivity implements
 		locationHelper.stop();
 		this.location = location;
 		getSupportLoaderManager().initLoader(1, null, this);
+	}
+
+	@Override
+	public void onFail(final LocationHelper locationHelper, BDLocation location) {
+		locationHelper.stop();
+		OnClickListener retryListener = new OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				locationHelper.start();
+			}
+		};
+		OnClickListener cancelListener = new OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				finish();
+			}
+		};
+		new AlertDialog.Builder(this).setTitle("提示")
+				.setMessage("定位失败，请检查网络后重试！")
+				.setNegativeButton("退出程序", cancelListener)
+				.setPositiveButton("重试", retryListener).create().show();
 	}
 
 	@Override

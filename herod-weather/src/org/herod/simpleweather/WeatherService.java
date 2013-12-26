@@ -12,7 +12,9 @@ import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -25,6 +27,7 @@ import com.baidu.location.BDLocation;
 public class WeatherService extends Service implements
 		OnLocationSuccessListener {
 	private static final int NOTIFICATION_ID = 100011;
+	private static final long DELAY_MILLIS = 60 * 1000;
 	private LocationHelper locationHelper;
 
 	@Override
@@ -45,6 +48,16 @@ public class WeatherService extends Service implements
 	public void onSuccess(LocationHelper locationHelper, BDLocation location) {
 		locationHelper.stop();
 		new LoadWeatherTask().execute(location);
+	}
+
+	@Override
+	public void onFail(final LocationHelper locationHelper, BDLocation location) {
+		locationHelper.stop();
+		new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+			public void run() {
+				locationHelper.start();
+			}
+		}, DELAY_MILLIS);
 	}
 
 	@Override
@@ -85,7 +98,6 @@ public class WeatherService extends Service implements
 				return null;
 			}
 		}
-
 	}
 
 }
