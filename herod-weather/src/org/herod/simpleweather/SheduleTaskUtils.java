@@ -26,7 +26,7 @@ public class SheduleTaskUtils {
 		AlarmManager am = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
 		am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-				AlarmManager.INTERVAL_HOUR, sender);
+				AlarmManager.INTERVAL_HOUR * 2, sender);
 	}
 
 	public static void cancel(Context context, Intent intent, int requestCode) {
