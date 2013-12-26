@@ -125,7 +125,19 @@ public class WeatherData {
 	}
 
 	public String getDateText() {
+		Calendar now = Calendar.getInstance();
+		Calendar weatherDate = Calendar.getInstance();
+		weatherDate.setTime(date);
+		if (equals(Calendar.YEAR, now, weatherDate)
+				&& equals(Calendar.MONTH, now, weatherDate)
+				&& equals(Calendar.DAY_OF_MONTH, now, weatherDate)) {
+			return "今日";
+		}
 		return DATE_FORMAT.format(date);
+	}
+
+	private static boolean equals(int field, Calendar date1, Calendar date2) {
+		return date1.get(field) == date2.get(field);
 	}
 
 }
