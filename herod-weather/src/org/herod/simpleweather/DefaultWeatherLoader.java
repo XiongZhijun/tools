@@ -40,7 +40,12 @@ public class DefaultWeatherLoader implements WeatherLoader {
 		restTemplate.getMessageConverters().add(
 				new StringHttpMessageConverter());
 		String url = buildUrl(context, cityId);
-		String json = restTemplate.getForObject(url, String.class);
+		String json;
+		try {
+			json = restTemplate.getForObject(url, String.class);
+		} catch (RuntimeException e) {
+			return getWeatherByCityId(context, cityId);
+		}
 		Gson gson = createGson();
 		return gson.fromJson(json, CityWeather.class);
 	}

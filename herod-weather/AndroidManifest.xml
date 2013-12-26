@@ -46,6 +46,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CityManagerActivity"
+            android:theme="@style/Theme.PageIndicatorDefaults" >
+        </activity>
 
         <receiver android:name=".ServiceAutoLanuchReceiver" >
             <intent-filter>

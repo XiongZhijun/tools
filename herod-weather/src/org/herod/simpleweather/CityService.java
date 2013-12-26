@@ -4,7 +4,9 @@
  */
 package org.herod.simpleweather;
 
-import java.util.List;
+import java.util.Set;
+
+import android.content.Context;
 
 /**
  * @author Xiong Zhijun
@@ -13,5 +15,9 @@ import java.util.List;
  */
 public interface CityService {
 
-	List<String> getCities();
+	Set<String> getCities(Context context);
+
+	void addCity(Context context, String city);
+
+	void deleteCity(Context context, String city);
 }

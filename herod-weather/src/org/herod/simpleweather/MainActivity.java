@@ -4,6 +4,7 @@
 package org.herod.simpleweather;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.herod.simpleweather.LocationHelper.OnLocationSuccessListener;
@@ -11,6 +12,7 @@ import org.herod.simpleweather.widgets.TabPageIndicator;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,6 +22,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.baidu.location.BDLocation;
 
@@ -41,7 +44,6 @@ public class MainActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_main);
 		mPager = (ViewPager) findViewById(R.id.pager);
 		mIndicator = (TabPageIndicator) findViewById(R.id.indicator);
-
 	}
 
 	@Override
@@ -80,6 +82,7 @@ public class MainActivity extends FragmentActivity implements
 				cities);
 		mPager.setAdapter(mAdapter);
 		mIndicator.setViewPager(mPager);
+		mIndicator.notifyDataSetChanged();
 	}
 
 	@Override
@@ -90,6 +93,15 @@ public class MainActivity extends FragmentActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.cities_manager) {
+			startActivity(new Intent(this, CityManagerActivity.class));
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	class CityWeatherFragmentAdapter extends FragmentPagerAdapter {
@@ -112,7 +124,6 @@ public class MainActivity extends FragmentActivity implements
 		public CharSequence getPageTitle(int position) {
 			return cities.get(position);
 		}
-
 	}
 
 	static class CitiesLoader extends AsyncTaskLoader<List<String>> {
@@ -125,8 +136,10 @@ public class MainActivity extends FragmentActivity implements
 
 		public List<String> loadInBackground() {
 			List<String> cities = new ArrayList<String>();
-			cities.add(location.getCity());
-			cities.addAll(WeatherContext.getCityService().getCities());
+			cities.addAll(WeatherContext.getCityService().getCities(
+					getContext()));
+			Collections.sort(cities);
+			cities.add(0, location.getCity());
 			return cities;
 		}
 
