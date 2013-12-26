@@ -4,6 +4,8 @@
  */
 package org.herod.simpleweather.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -15,6 +17,7 @@ import org.herod.simpleweather.ResourcesUtils;
  * 
  */
 public class WeatherData {
+	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM月dd日");
 	private Date date;
 	private String temperature;
 	private String weather;
@@ -119,6 +122,10 @@ public class WeatherData {
 			return ResourcesUtils.getResourcesIdByType(getDayPictureUrl(),
 					"drawable");
 		}
+	}
+
+	public String getDateText() {
+		return DATE_FORMAT.format(date);
 	}
 
 }

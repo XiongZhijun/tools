@@ -21,12 +21,19 @@ public class SheduleTaskUtils {
 	public static void shedule(Context context, Intent intent, int requestCode,
 			long interval) {
 		Calendar calendar = Calendar.getInstance();
-
 		PendingIntent sender = PendingIntent.getService(context, requestCode,
 				intent, 0);
 		AlarmManager am = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
 		am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
 				AlarmManager.INTERVAL_HOUR, sender);
+	}
+
+	public static void cancel(Context context, Intent intent, int requestCode) {
+		PendingIntent sender = PendingIntent.getService(context, requestCode,
+				intent, 0);
+		AlarmManager am = (AlarmManager) context
+				.getSystemService(Context.ALARM_SERVICE);
+		am.cancel(sender);
 	}
 }

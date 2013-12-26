@@ -3,28 +3,26 @@
  */
 package org.herod.simpleweather;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
-import android.view.View;
 
 /**
  * @author Xiong Zhijun
  * @email hust.xzj@gmail.com
  * 
  */
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		startService(new Intent(this, WeatherService.class));
-	}
-
-	public void load(View v) {
-		startService(new Intent(this, WeatherService.class));
+		FragmentTransaction transaction = getSupportFragmentManager()
+				.beginTransaction();
+		transaction.add(R.id.content, new CityWeatherFragment());
+		transaction.commit();
 	}
 
 	@Override

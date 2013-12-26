@@ -4,24 +4,17 @@
  */
 package org.herod.simpleweather;
 
-import java.util.List;
-
 import org.herod.simpleweather.LocationHelper.OnLocationSuccessListener;
 import org.herod.simpleweather.model.CityWeather;
 import org.herod.simpleweather.model.WeatherData;
 
 import android.app.Notification;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.baidu.location.BDLocation;
-import com.google.gson.Gson;
 
 /**
  * @author Xiong Zhijun
@@ -30,7 +23,7 @@ import com.google.gson.Gson;
  */
 public class WeatherService extends Service implements
 		OnLocationSuccessListener {
-	private List<CityWeather> weathers;
+	private static final int NOTIFICATION_ID = 100011;
 	private LocationHelper locationHelper;
 
 	@Override
@@ -56,51 +49,34 @@ public class WeatherService extends Service implements
 	@Override
 	public void onDestroy() {
 		locationHelper.stop();
+		stopForeground(true);
 		super.onDestroy();
 	}
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		return new ServiceBinder();
+		return null;
 	}
 
-	class LoadWeatherTask extends
-			AsyncTask<BDLocation, Void, List<CityWeather>> {
-		@Override
-		protected void onPostExecute(List<CityWeather> weathers) {
-			WeatherService.this.weathers = weathers;
-			WeatherData todayWeather = weathers.get(0).getTodayWeather();
+	class LoadWeatherTask extends AsyncTask<BDLocation, Void, CityWeather> {
+
+		protected void onPostExecute(CityWeather weather) {
+			WeatherData todayWeather = weather != null ? weather
+					.getTodayWeather() : null;
 			if (todayWeather == null) {
 				return;
 			}
+			stopForeground(true);
 			Service service = WeatherService.this;
-			Log.d(getClass().getSimpleName(), new Gson().toJson(weathers));
-			PendingIntent contentIntent = PendingIntent.getActivity(service, 0,
-					new Intent(service, MainActivity.class), 0);
-			Notification notification = new Notification.Builder(service)
-					.setContentTitle(todayWeather.getContentTitle())
-					.setSmallIcon(todayWeather.getCurrentPictureResource())
-					.setLargeIcon(
-							BitmapFactory.decodeResource(getResources(),
-									todayWeather.getCurrentPictureResource()))
-					.setContentInfo(todayWeather.getContentInfo())
-					.setOngoing(true).setContentIntent(contentIntent).build();
-			startForeground(100011, notification);
-
+			Notification notification = WeatherUtils.createWeatherNotification(
+					service, todayWeather);
+			startForeground(NOTIFICATION_ID, notification);
 		}
 
 		@Override
-		protected List<CityWeather> doInBackground(BDLocation... params) {
-			return new WeatherServer().getWeathers(getApplicationContext(),
-					params[0]);
-		}
-
-	}
-
-	public class ServiceBinder extends Binder {
-
-		public List<CityWeather> getWeathers() {
-			return weathers;
+		protected CityWeather doInBackground(BDLocation... params) {
+			return WeatherContext.getWeatherLoader().getWeatherByLocation(
+					getApplicationContext(), params[0]);
 		}
 
 	}

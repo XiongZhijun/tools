@@ -4,9 +4,6 @@
  */
 package org.herod.simpleweather;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.herod.simpleweather.model.CityWeather;
 import org.herod.simpleweather.model.CityWeatherTypeAdapter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -23,30 +20,39 @@ import com.google.gson.GsonBuilder;
  * @email hust.xzj@gmail.com
  * 
  */
-public class WeatherServer {
+public class DefaultWeatherLoader implements WeatherLoader {
 	private static final String URL_TEMPLATE = "http://m.weather.com.cn/data/%1$s.html";
 
-	public List<CityWeather> getWeathers(Context context, BDLocation location) {
+	@Override
+	public CityWeather getWeatherByLocation(Context context, BDLocation location) {
+		return getWeatherByCityName(context, location.getCity());
+	}
+
+	@Override
+	public CityWeather getWeatherByCityName(Context context, String cityName) {
+		return getWeatherByCityId(context,
+				WeatherUtils.findCityIdByCityName(context, cityName));
+	}
+
+	@Override
+	public CityWeather getWeatherByCityId(Context context, String cityId) {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(
 				new StringHttpMessageConverter());
-		String url = buildUrl(context, location);
+		String url = buildUrl(context, cityId);
 		String json = restTemplate.getForObject(url, String.class);
 		Gson gson = createGson();
-		CityWeather cityWeather = gson.fromJson(json, CityWeather.class);
-		return Arrays.asList(cityWeather);
+		return gson.fromJson(json, CityWeather.class);
+	}
+
+	private String buildUrl(Context context, String cityId) {
+		return String.format(URL_TEMPLATE, cityId);
 	}
 
 	private Gson createGson() {
 		Gson gson = new GsonBuilder().registerTypeAdapter(CityWeather.class,
 				new CityWeatherTypeAdapter()).create();
 		return gson;
-	}
-
-	private String buildUrl(Context context, BDLocation location) {
-		String cityId = CityLists.findCityId(context, location.getCity());
-		String url = String.format(URL_TEMPLATE, cityId);
-		return url;
 	}
 
 }
