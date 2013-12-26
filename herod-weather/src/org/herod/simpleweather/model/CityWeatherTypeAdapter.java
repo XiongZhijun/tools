@@ -41,9 +41,9 @@ public class CityWeatherTypeAdapter implements JsonDeserializer<CityWeather> {
 		Date date = getDate(jsonObject);
 		calendar.setTime(date);
 		for (int i = 1; i <= 6; i++) {
-			calendar.add(Calendar.DAY_OF_MONTH, i - 1);
 			WeatherData weatherData = toWeatherData(jsonObject, calendar, i);
 			weather.addWeatherData(weatherData);
+			calendar.add(Calendar.DAY_OF_MONTH, 1);
 		}
 		return weather;
 	}

@@ -3,33 +3,139 @@
  */
 package org.herod.simpleweather;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.herod.simpleweather.LocationHelper.OnLocationSuccessListener;
+import org.herod.simpleweather.widgets.TabPageIndicator;
+
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
+
+import com.baidu.location.BDLocation;
 
 /**
  * @author Xiong Zhijun
  * @email hust.xzj@gmail.com
  * 
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements
+		LoaderCallbacks<List<String>>, OnLocationSuccessListener {
+	private ViewPager mPager;
+	private TabPageIndicator mIndicator;
+	private BDLocation location;
+	private ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
-		transaction.add(R.id.content, new CityWeatherFragment());
-		transaction.commit();
+		mPager = (ViewPager) findViewById(R.id.pager);
+		mIndicator = (TabPageIndicator) findViewById(R.id.indicator);
+
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		new LocationHelper(this, this).start();
+		progressDialog = ProgressDialog.show(this, "提示", "定位中……");
+	}
+
+	@Override
+	protected void onStop() {
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
+		super.onStop();
+	}
+
+	@Override
+	public void onSuccess(LocationHelper locationHelper, BDLocation location) {
+		locationHelper.stop();
+		this.location = location;
+		getSupportLoaderManager().initLoader(1, null, this);
+	}
+
+	@Override
+	public Loader<List<String>> onCreateLoader(int id, Bundle args) {
+		return new CitiesLoader(this, location);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<List<String>> loader, List<String> cities) {
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
+		CityWeatherFragmentAdapter mAdapter = new CityWeatherFragmentAdapter(
+				cities);
+		mPager.setAdapter(mAdapter);
+		mIndicator.setViewPager(mPager);
+	}
+
+	@Override
+	public void onLoaderReset(Loader<List<String>> loader) {
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	class CityWeatherFragmentAdapter extends FragmentPagerAdapter {
+
+		private List<String> cities;
+
+		public CityWeatherFragmentAdapter(List<String> cities) {
+			super(getSupportFragmentManager());
+			this.cities = cities;
+		}
+
+		public Fragment getItem(int position) {
+			return CityWeatherFragment.createFragment(cities.get(position));
+		}
+
+		public int getCount() {
+			return cities != null ? cities.size() : 0;
+		}
+
+		public CharSequence getPageTitle(int position) {
+			return cities.get(position);
+		}
+
+	}
+
+	static class CitiesLoader extends AsyncTaskLoader<List<String>> {
+		private BDLocation location;
+
+		public CitiesLoader(Context context, BDLocation location) {
+			super(context);
+			this.location = location;
+		}
+
+		public List<String> loadInBackground() {
+			List<String> cities = new ArrayList<String>();
+			cities.add(location.getCity());
+			cities.addAll(WeatherContext.getCityService().getCities());
+			return cities;
+		}
+
+		@Override
+		protected void onStartLoading() {
+			super.onStartLoading();
+			forceLoad();
+		}
+
 	}
 
 }

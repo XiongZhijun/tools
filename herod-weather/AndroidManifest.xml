@@ -38,7 +38,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="org.herod.simpleweather.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/Theme.PageIndicatorDefaults" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

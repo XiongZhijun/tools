@@ -12,9 +12,14 @@ package org.herod.simpleweather;
 public class WeatherContext {
 
 	private static WeatherLoader weatherLoader = new DefaultWeatherLoader();
+	private static CityService cityService = new DefaultCityService();
 
 	public static WeatherLoader getWeatherLoader() {
 		return weatherLoader;
+	}
+
+	public static CityService getCityService() {
+		return cityService;
 	}
 
 }

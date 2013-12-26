@@ -6,7 +6,6 @@ package org.herod.simpleweather;
 
 import java.util.List;
 
-import org.herod.simpleweather.LocationHelper.OnLocationSuccessListener;
 import org.herod.simpleweather.model.CityWeather;
 import org.herod.simpleweather.model.WeatherData;
 
@@ -24,18 +23,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.baidu.location.BDLocation;
-
 /**
  * @author Xiong Zhijun
  * @email hust.xzj@gmail.com
  * 
  */
 public class CityWeatherFragment extends Fragment implements
-		LoaderCallbacks<CityWeather>, OnLocationSuccessListener {
-
+		LoaderCallbacks<CityWeather> {
+	private static final String CITY = "city";
 	private ListView weatherListView;
-	private BDLocation location;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,24 +44,19 @@ public class CityWeatherFragment extends Fragment implements
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		weatherListView = (ListView) getView().findViewById(R.id.weatherList);
+		weatherListView.setEmptyView(view.findViewById(R.id.emptyView));
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		new LocationHelper(getActivity(), this).start();
-	}
-
-	@Override
-	public void onSuccess(LocationHelper locationHelper, BDLocation location) {
-		locationHelper.stop();
-		this.location = location;
 		getLoaderManager().initLoader(1001, null, this);
 	}
 
 	@Override
 	public Loader<CityWeather> onCreateLoader(int id, Bundle args) {
-		return new CityWeatherLoader(getActivity(), location);
+		String city = getArguments().getString(CITY);
+		return new CityWeatherLoader(getActivity(), city);
 	}
 
 	@Override
@@ -77,6 +68,14 @@ public class CityWeatherFragment extends Fragment implements
 
 	@Override
 	public void onLoaderReset(Loader<CityWeather> data) {
+	}
+
+	public static CityWeatherFragment createFragment(String city) {
+		CityWeatherFragment shopListFragment = new CityWeatherFragment();
+		Bundle args = new Bundle();
+		args.putString(CITY, city);
+		shopListFragment.setArguments(args);
+		return shopListFragment;
 	}
 
 	class WeatherAdapater extends BaseAdapter {
@@ -131,17 +130,16 @@ public class CityWeatherFragment extends Fragment implements
 	}
 
 	static class CityWeatherLoader extends AsyncTaskLoader<CityWeather> {
+		private String city;
 
-		private BDLocation location;
-
-		public CityWeatherLoader(Context context, BDLocation location) {
+		public CityWeatherLoader(Context context, String city) {
 			super(context);
-			this.location = location;
+			this.city = city;
 		}
 
 		public CityWeather loadInBackground() {
-			return WeatherContext.getWeatherLoader().getWeatherByLocation(
-					getContext(), location);
+			return WeatherContext.getWeatherLoader().getWeatherByCityName(
+					getContext(), city);
 		}
 
 		@Override

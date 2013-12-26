@@ -5,5 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="baidu_ak">S9MUoVLvumvtOf5lNYjHR6oy</string>
+    <string name="loading">数据加载中……</string>
 
 </resources>
