@@ -69,7 +69,7 @@ public class WeatherUtils {
 		Notification notification = new Notification.Builder(context)
 				.setContent(views)
 				.setSmallIcon(weatherData.getCurrentPictureResource())
-				.setOngoing(true).setContentIntent(contentIntent).build();
+				.setOngoing(true).setContentIntent(contentIntent).getNotification();
 		return notification;
 	}
 }

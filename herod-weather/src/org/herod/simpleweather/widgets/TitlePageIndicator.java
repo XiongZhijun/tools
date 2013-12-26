@@ -158,7 +158,6 @@ public class TitlePageIndicator extends View implements PageIndicator {
 		this(context, attrs, R.attr.vpiTitlePageIndicatorStyle);
 	}
 
-	@SuppressWarnings("deprecation")
 	public TitlePageIndicator(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		if (isInEditMode())
