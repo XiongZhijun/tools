@@ -13,6 +13,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 
@@ -64,6 +65,8 @@ public class WeatherService extends Service implements
 			WeatherData todayWeather = weather != null ? weather
 					.getTodayWeather() : null;
 			if (todayWeather == null) {
+				Toast.makeText(getApplicationContext(), "读取天气数据失败！",
+						Toast.LENGTH_LONG).show();
 				return;
 			}
 			stopForeground(true);
@@ -75,8 +78,12 @@ public class WeatherService extends Service implements
 
 		@Override
 		protected CityWeather doInBackground(BDLocation... params) {
-			return WeatherContext.getWeatherLoader().getWeatherByLocation(
-					getApplicationContext(), params[0]);
+			try {
+				return WeatherContext.getWeatherLoader().getWeatherByLocation(
+						getApplicationContext(), params[0]);
+			} catch (RuntimeException e) {
+				return null;
+			}
 		}
 
 	}

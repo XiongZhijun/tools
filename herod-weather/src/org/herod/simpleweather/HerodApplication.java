@@ -4,7 +4,6 @@
 package org.herod.simpleweather;
 
 import android.app.Application;
-import android.content.Intent;
 
 /**
  * 
@@ -17,7 +16,6 @@ public class HerodApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		ResourcesUtils.setApplication(this);
-		startService(new Intent(this, WeatherService.class));
 	}
 
 }
