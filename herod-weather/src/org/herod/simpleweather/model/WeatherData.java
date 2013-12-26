@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.herod.simpleweather.R;
 import org.herod.simpleweather.ResourcesUtils;
 
 /**
@@ -116,12 +117,22 @@ public class WeatherData {
 
 	public int getCurrentPictureResource() {
 		if (isNight()) {
-			return ResourcesUtils.getResourcesIdByType(getNightPictureUrl(),
-					"drawable");
+			return getNightPictureResource();
 		} else {
-			return ResourcesUtils.getResourcesIdByType(getDayPictureUrl(),
-					"drawable");
+			return getDayPictureResource();
 		}
+	}
+
+	public int getNightPictureResource() {
+		int id = ResourcesUtils.getResourcesIdByType(getNightPictureUrl(),
+				"drawable");
+		return id > 0 ? id : R.drawable.n00;
+	}
+
+	public int getDayPictureResource() {
+		int id = ResourcesUtils.getResourcesIdByType(getDayPictureUrl(),
+				"drawable");
+		return id > 0 ? id : R.drawable.d00;
 	}
 
 	public String getDateText() {

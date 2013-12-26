@@ -115,8 +115,10 @@ public class CityWeatherFragment extends Fragment implements
 
 		private void bindView(View v, int position) {
 			WeatherData weatherData = weatherDatas.get(position);
-			ImageView imageView = (ImageView) v.findViewById(R.id.image);
-			imageView.setImageResource(weatherData.getCurrentPictureResource());
+			ImageView dayImageView = (ImageView) v.findViewById(R.id.dayImage);
+			dayImageView.setImageResource(weatherData.getDayPictureResource());
+			ImageView nightImageView = (ImageView) v.findViewById(R.id.nightImage);
+			nightImageView.setImageResource(weatherData.getNightPictureResource());
 			setText(v, R.id.date, weatherData.getDateText());
 			setText(v, R.id.title, weatherData.getContentTitle());
 			setText(v, R.id.content, weatherData.getContentInfo());
