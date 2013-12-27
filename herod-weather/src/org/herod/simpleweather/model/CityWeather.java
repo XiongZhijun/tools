@@ -39,6 +39,12 @@ public class CityWeather {
 	}
 
 	public List<WeatherData> getWeatherDatas() {
+		List<WeatherData> results = new ArrayList<WeatherData>();
+		for (WeatherData weatherData : results) {
+			if (weatherData.isNotBeforeToday()) {
+				results.add(weatherData);
+			}
+		}
 		return weatherDatas;
 	}
 
@@ -47,7 +53,12 @@ public class CityWeather {
 	}
 
 	public WeatherData getTodayWeather() {
-		return weatherDatas.size() > 0 ? weatherDatas.get(0) : null;
+		for (WeatherData weatherData : getWeatherDatas()) {
+			if (weatherData.isToday()) {
+				return weatherData;
+			}
+		}
+		return null;
 	}
 
 }
