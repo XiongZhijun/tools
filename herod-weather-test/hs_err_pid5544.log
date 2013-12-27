@@ -1,0 +1,107 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (classFileParser.cpp:3494), pid=5544, tid=5624
+#  Error: ShouldNotReachHere()
+#
+# JRE version: 6.0_27-b07
+# Java VM: Java HotSpot(TM) Client VM (20.2-b06 mixed mode windows-x86 )
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0125a000):  JavaThread "Unknown thread" [_thread_in_vm, id=5624, stack(0x00350000,0x003a0000)]
+
+Stack: [0x00350000,0x003a0000],  sp=0x0039f86c,  free space=318k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x1335ba]
+V  [jvm.dll+0x12e56b]
+V  [jvm.dll+0x1639e]
+V  [jvm.dll+0x17bdf]
+V  [jvm.dll+0x26cc5]
+V  [jvm.dll+0x27506]
+V  [jvm.dll+0x278b5]
+V  [jvm.dll+0x27949]
+V  [jvm.dll+0x27a0c]
+V  [jvm.dll+0x27a8a]
+V  [jvm.dll+0x27b6d]
+V  [jvm.dll+0x27e39]
+V  [jvm.dll+0x6c383]
+V  [jvm.dll+0x6c75c]
+V  [jvm.dll+0xf9b4c]
+V  [jvm.dll+0x11848b]
+V  [jvm.dll+0x9eb60]
+C  [javaw.exe+0x1657]
+C  [javaw.exe+0x1e2c]
+C  [javaw.exe+0x8614]
+C  [kernel32.dll+0x53c45]  BaseThreadInitThunk+0x12
+C  [ntdll.dll+0x637f5]  RtlInitializeExceptionChain+0xef
+C  [ntdll.dll+0x637c8]  RtlInitializeExceptionChain+0xc2
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x0125a000 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=5624, stack(0x00350000,0x003a0000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	F:\develop tools\BearDevelopTools\jdk1.6.0_27\bin\javaw.exe
+0x77d00000 - 0x77e3c000 	E:\Windows\SYSTEM32\ntdll.dll
+0x764e0000 - 0x765b4000 	E:\Windows\system32\kernel32.dll
+0x760e0000 - 0x7612a000 	E:\Windows\system32\KERNELBASE.dll
+0x762c0000 - 0x76360000 	E:\Windows\system32\ADVAPI32.dll
+0x77920000 - 0x779cc000 	E:\Windows\system32\msvcrt.dll
+0x77f10000 - 0x77f29000 	E:\Windows\SYSTEM32\sechost.dll
+0x77bc0000 - 0x77c61000 	E:\Windows\system32\RPCRT4.dll
+0x76b80000 - 0x76c49000 	E:\Windows\system32\USER32.dll
+0x767b0000 - 0x767fe000 	E:\Windows\system32\GDI32.dll
+0x762b0000 - 0x762ba000 	E:\Windows\system32\LPK.dll
+0x77e70000 - 0x77f0d000 	E:\Windows\system32\USP10.dll
+0x76b00000 - 0x76b1f000 	E:\Windows\system32\IMM32.DLL
+0x766e0000 - 0x767ac000 	E:\Windows\system32\MSCTF.dll
+0x7c340000 - 0x7c396000 	F:\develop tools\BearDevelopTools\jdk1.6.0_27\jre\bin\msvcr71.dll
+0x6d8a0000 - 0x6db4f000 	F:\develop tools\BearDevelopTools\jdk1.6.0_27\jre\bin\client\jvm.dll
+0x74430000 - 0x74462000 	E:\Windows\system32\WINMM.dll
+0x75d50000 - 0x75d9c000 	E:\Windows\system32\apphelp.dll
+0x6d850000 - 0x6d85c000 	F:\develop tools\BearDevelopTools\jdk1.6.0_27\jre\bin\verify.dll
+0x6d3d0000 - 0x6d3ef000 	F:\develop tools\BearDevelopTools\jdk1.6.0_27\jre\bin\java.dll
+0x6d890000 - 0x6d89f000 	F:\develop tools\BearDevelopTools\jdk1.6.0_27\jre\bin\zip.dll
+0x77e60000 - 0x77e65000 	E:\Windows\system32\PSAPI.DLL
+
+VM Arguments:
+jvm_args: -Dfile.encoding=UTF-8 -Xbootclasspath:F:\develop tools\adt-bundle-windows-x86-20130917\sdk\platforms\android-14\android.jar 
+java_command: org.eclipse.jdt.internal.junit.runner.RemoteTestRunner -version 3 -port 50332 -testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader -loaderpluginname org.eclipse.jdt.junit4.runtime -classNames org.herod.simpleweather.test.WeatherDataTest
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=F:\develop tools\BearDevelopTools\jdk1.6.0_27
+JRE_HOME=F:\develop tools\BearDevelopTools\jdk1.6.0_27\jre
+PATH=F:/develop tools/BearDevelopTools/jdk1.6.0_27/bin/../jre/bin/client;F:/develop tools/BearDevelopTools/jdk1.6.0_27/bin/../jre/bin;F:/develop tools/BearDevelopTools/jdk1.6.0_27/bin/../jre/lib/i386;F:\develop tools\springsource\grails-2.2.4\bin;F:\develop tools\apache-maven-3.1.1\bin;E:\Program Files\Common Files\Microsoft Shared\Windows Live;F:\develop tools\ruby-1.9.1-p0-i386-mswin32\bin;E:\Program Files\Common Files\NetSarang;F:\Python33\;F:\develop tools\emacs-24.3\bin;F:\develop tools\adt-bundle-windows-x86-20130522\sdk\platform-tools;F:\develop tools\adt-bundle-windows-x86-20130522\sdk\tools;F:\develop tools\BearDevelopTools\ant\bin;F:\develop tools\BearDevelopTools\Subversion\bin;F:\develop tools\BearDevelopTools\jdk1.6.0_27\bin;E:\Windows\system32;E:\Windows;E:\Windows\System32\Wbem;E:\Windows\System32\WindowsPowerShell\v1.0\;F:\Program Files\TortoiseSVN\bin;E:\Users\Xiong\AppData\Local\GitHub\PortableGit_015aa71ef18c047ce8509ffb2f9e4bb0e3e73f13\bin;E:\Program Files\Windows Live\Shared;F:\develop tools\adt-bundle-windows-x86-20130917\eclipse;
+USERNAME=Xiong
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 23 Stepping 10, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7601 Service Pack 1
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3
+
+Memory: 4k page, physical 3397880k(859176k free), swap 6794004k(3988528k free)
+
+vm_info: Java HotSpot(TM) Client VM (20.2-b06) for windows-x86 JRE (1.6.0_27-b07), built on Jul 19 2011 01:04:42 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Fri Dec 27 10:00:50 2013
+elapsed time: 0 seconds
+
