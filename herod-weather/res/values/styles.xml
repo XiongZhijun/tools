@@ -1,34 +1,6 @@
 <resources>
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
-
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
-
-    <style name="ActionBarStyle" parent="@android:style/Widget.ActionBar">
-        <item name="android:background">@drawable/actionbar_background</item>
-        <item name="android:titleTextStyle">@style/ActionBarTextStyle</item>
-    </style>
-
-    <style name="ActionBarTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="ActionButtonStyle" parent="@android:style/Widget.ActionButton">
-        <item name="android:background">@drawable/actionbar_btn</item>
-    </style>
+    <style name="AppTheme" parent="AppBaseTheme"></style>
 
     <!-- TitlePageIndicatorStyle -->
     <style name="TitlePageIndicatorStyle">
@@ -37,15 +9,6 @@
         <item name="android:textColor">@color/black</item>
         <item name="selectedColor">@color/black</item>
         <item name="topPadding">0dp</item>
-    </style>
-
-    <style name="ButtonStyle" parent="@android:style/Widget.Button">
-        <item name="android:background">@drawable/button_background</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_width">100dip</item>
-        <item name="android:layout_height">40dip</item>
-        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
 </resources>

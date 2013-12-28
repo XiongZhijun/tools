@@ -4,13 +4,5 @@
     <color name="base_empty_view_bg">#F0F0F0</color>
     <color name="base_empty_view_bg_pressed">#99ff99</color>
     <!--  -->
-    <color name="ThemeColor">#96AA39</color>
-    <color name="ButtonPressedColor">#71CBE1</color>
-    <color name="ActivityBackground">#E5E5E5</color>
-   
-    <color name="transparent">#00000000</color>
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
-    <color name="red">#FF0000</color>
 
 </resources>
