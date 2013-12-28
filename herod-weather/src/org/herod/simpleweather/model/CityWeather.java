@@ -45,7 +45,7 @@ public class CityWeather {
 				results.add(weatherData);
 			}
 		}
-		return weatherDatas;
+		return results;
 	}
 
 	public void setWeatherDatas(List<WeatherData> weatherDatas) {
