@@ -40,12 +40,12 @@ public class CityWeather {
 
 	public List<WeatherData> getWeatherDatas() {
 		List<WeatherData> results = new ArrayList<WeatherData>();
-		for (WeatherData weatherData : results) {
+		for (WeatherData weatherData : this.weatherDatas) {
 			if (weatherData.isNotBeforeToday()) {
 				results.add(weatherData);
 			}
 		}
-		return weatherDatas;
+		return results;
 	}
 
 	public void setWeatherDatas(List<WeatherData> weatherDatas) {
