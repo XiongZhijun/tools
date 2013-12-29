@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.herod.android.indicator.TabPageIndicator;
 import org.herod.simpleweather.LocationHelper.OnLocationSuccessListener;
-import org.herod.simpleweather.widgets.TabPageIndicator;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

@@ -9,8 +9,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.herod.android.lang.ResourcesUtils;
 import org.herod.simpleweather.R;
-import org.herod.simpleweather.ResourcesUtils;
+
+import android.content.Context;
 
 /**
  * @author Xiong Zhijun
@@ -115,22 +117,22 @@ public class WeatherData {
 		return hour >= 18;
 	}
 
-	public int getCurrentPictureResource() {
+	public int getCurrentPictureResource(Context context) {
 		if (isNight()) {
-			return getNightPictureResource();
+			return getNightPictureResource(context);
 		} else {
-			return getDayPictureResource();
+			return getDayPictureResource(context);
 		}
 	}
 
-	public int getNightPictureResource() {
-		int id = ResourcesUtils.getResourcesIdByType(getNightPictureUrl(),
+	public int getNightPictureResource(Context context) {
+		int id = ResourcesUtils.getResourcesIdByType(context,getNightPictureUrl(),
 				"drawable");
 		return id > 0 ? id : R.drawable.n00;
 	}
 
-	public int getDayPictureResource() {
-		int id = ResourcesUtils.getResourcesIdByType(getDayPictureUrl(),
+	public int getDayPictureResource(Context context) {
+		int id = ResourcesUtils.getResourcesIdByType(context,getDayPictureUrl(),
 				"drawable");
 		return id > 0 ? id : R.drawable.d00;
 	}

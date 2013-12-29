@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <org.herod.simpleweather.widgets.TabPageIndicator
+    <org.herod.android.indicator.TabPageIndicator
         android:id="@+id/indicator"
         style="@style/TitlePageIndicatorStyle" />
 

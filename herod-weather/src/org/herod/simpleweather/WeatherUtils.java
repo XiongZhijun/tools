@@ -63,12 +63,12 @@ public class WeatherUtils {
 		RemoteViews views = new RemoteViews(context.getPackageName(),
 				R.layout.weather_notification);
 		views.setImageViewResource(R.id.image,
-				weatherData.getCurrentPictureResource());
+				weatherData.getCurrentPictureResource(context));
 		views.setTextViewText(R.id.title, weatherData.getContentTitle());
 		views.setTextViewText(R.id.content, weatherData.getContentInfo());
 		Notification notification = new Notification.Builder(context)
 				.setContent(views)
-				.setSmallIcon(weatherData.getCurrentPictureResource())
+				.setSmallIcon(weatherData.getCurrentPictureResource(context))
 				.setOngoing(true).setContentIntent(contentIntent).getNotification();
 		return notification;
 	}
