@@ -8,10 +8,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.herod.android.indicator.TabPageIndicator;
+import org.herod.android.lang.AlertDialogUtils;
 import org.herod.android.lbs.LocationHelper;
 import org.herod.android.lbs.LocationHelper.OnLocationSuccessListener;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -55,7 +55,8 @@ public class MainActivity extends FragmentActivity implements
 	protected void onStart() {
 		super.onStart();
 		new LocationHelper(this, this).start();
-		progressDialog = ProgressDialog.show(this, "提示", "定位中……");
+		progressDialog = ProgressDialog.show(this, getString(R.string.alert),
+				"定位中……");
 	}
 
 	@Override
@@ -86,10 +87,9 @@ public class MainActivity extends FragmentActivity implements
 				finish();
 			}
 		};
-		new AlertDialog.Builder(this).setTitle("提示")
-				.setMessage("定位失败，请检查网络后重试！")
-				.setNegativeButton("退出程序", cancelListener)
-				.setPositiveButton("重试", retryListener).create().show();
+		AlertDialogUtils.create(this, R.string.alert,
+				R.string.location_failed_alert_info, R.string.exit_app,
+				cancelListener, R.string.retry, retryListener).show();
 	}
 
 	@Override

@@ -4,12 +4,12 @@
  */
 package org.herod.simpleweather;
 
-import java.util.List;
-
+import org.herod.android.lang.AbstractAdapter;
+import org.herod.android.lang.AlertDialogUtils;
+import org.herod.android.lang.ViewHelper;
 import org.herod.simpleweather.model.CityWeather;
 import org.herod.simpleweather.model.WeatherData;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -21,10 +21,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 /**
  * @author Xiong Zhijun
@@ -79,10 +76,10 @@ public class CityWeatherFragment extends Fragment implements
 					getActivity().finish();
 				}
 			};
-			new AlertDialog.Builder(getActivity()).setTitle("提示")
-					.setMessage("读取天气数据失败！")
-					.setNegativeButton("退出程序", cancelListener)
-					.setPositiveButton("重试", retryListener).create().show();
+			AlertDialogUtils.create(getActivity(), R.string.alert,
+					R.string.read_weather_data_failed_alert_info,
+					R.string.exit_app, cancelListener, R.string.retry,
+					retryListener).show();
 			return;
 		}
 		weatherListView.setAdapter(new WeatherAdapater(getActivity(),
@@ -101,57 +98,25 @@ public class CityWeatherFragment extends Fragment implements
 		return shopListFragment;
 	}
 
-	class WeatherAdapater extends BaseAdapter {
-		private List<WeatherData> weatherDatas;
-		private LayoutInflater inflater;
+	class WeatherAdapater extends AbstractAdapter<WeatherData> {
 
 		public WeatherAdapater(Context context, CityWeather cityWeather) {
-			super();
-			weatherDatas = cityWeather.getWeatherDatas();
-			inflater = LayoutInflater.from(context);
+			super(context, cityWeather.getWeatherDatas(), R.layout.weather_item);
 		}
 
 		@Override
-		public int getCount() {
-			return weatherDatas.size();
-		}
+		protected void bindView(int position, View view, ViewHelper viewHelper) {
+			WeatherData weatherData = getItemWithType(position);
+			viewHelper.setImageViewValue(R.id.dayImage,
+					weatherData.getDayPictureResource(getActivity()));
+			viewHelper.setImageViewValue(R.id.nightImage,
+					weatherData.getNightPictureResource(getActivity()));
+			viewHelper.setTextViewValue(R.id.date, weatherData.getDateText());
+			viewHelper.setTextViewValue(R.id.title,
+					weatherData.getContentTitle());
+			viewHelper.setTextViewValue(R.id.content,
+					weatherData.getContentInfo());
 
-		@Override
-		public Object getItem(int position) {
-			return weatherDatas.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View v = convertView;
-			if (v == null) {
-				v = inflater.inflate(R.layout.weather_item, null);
-			}
-			bindView(v, position);
-			return v;
-		}
-
-		private void bindView(View v, int position) {
-			WeatherData weatherData = weatherDatas.get(position);
-			ImageView dayImageView = (ImageView) v.findViewById(R.id.dayImage);
-			dayImageView.setImageResource(weatherData.getDayPictureResource(getActivity()));
-			ImageView nightImageView = (ImageView) v
-					.findViewById(R.id.nightImage);
-			nightImageView.setImageResource(weatherData
-					.getNightPictureResource(getActivity()));
-			setText(v, R.id.date, weatherData.getDateText());
-			setText(v, R.id.title, weatherData.getContentTitle());
-			setText(v, R.id.content, weatherData.getContentInfo());
-		}
-
-		private void setText(View v, int id, String text) {
-			TextView textView = (TextView) v.findViewById(id);
-			textView.setText(text);
 		}
 
 	}

@@ -9,22 +9,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import org.herod.android.lang.AbstractAdapter;
+import org.herod.android.lang.AlertDialogUtils;
+import org.herod.android.lang.ViewHelper;
+
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Loader;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 /**
  * @author Xiong Zhijun
@@ -74,56 +73,21 @@ public class CityManagerActivity extends Activity implements
 				dialog.dismiss();
 			}
 		};
-		DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-			}
-		};
-		new AlertDialog.Builder(this).setTitle("添加城市").setView(view)
-				.setNegativeButton("取消", cancelListener)
-				.setPositiveButton("添加", addListener).create().show();
+		AlertDialogUtils.create(context, "添加城市", view, "添加", addListener)
+				.show();
 	}
 
-	class CityAdapter extends BaseAdapter {
-		private List<String> cities;
-		private LayoutInflater inflater;
+	class CityAdapter extends AbstractAdapter<String> {
 
 		public CityAdapter(Context context, List<String> cities) {
-			super();
-			this.cities = cities;
-			this.inflater = LayoutInflater.from(context);
+			super(context, cities, R.layout.city_item);
 		}
 
 		@Override
-		public int getCount() {
-			return cities.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return cities.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View v = convertView;
-			if (v == null) {
-				v = inflater.inflate(R.layout.city_item, null);
-			}
-			bindView(v, position);
-			return v;
-		}
-
-		private void bindView(View v, int position) {
-			String city = cities.get(position);
-			TextView nameView = (TextView) v.findViewById(R.id.name);
-			nameView.setText(city);
-			v.findViewById(R.id.deleteButton).setOnClickListener(
+		protected void bindView(int position, View view, ViewHelper viewHelper) {
+			String city = getItemWithType(position);
+			viewHelper.setTextViewValue(R.id.name, city);
+			viewHelper.setOnClickListener(R.id.deleteButton,
 					new DeleteCityListener(city));
 		}
 
@@ -139,11 +103,6 @@ public class CityManagerActivity extends Activity implements
 		@Override
 		public void onClick(View v) {
 			final CityManagerActivity context = CityManagerActivity.this;
-			DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			};
 			DialogInterface.OnClickListener deleteListener = new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					WeatherContext.getCityService().deleteCity(context, city);
@@ -151,11 +110,8 @@ public class CityManagerActivity extends Activity implements
 					dialog.dismiss();
 				}
 			};
-			new AlertDialog.Builder(context).setTitle("提示")
-					.setMessage("确定删除“" + city + "”吗？")
-					.setNegativeButton("取消", cancelListener)
-					.setPositiveButton("确定", deleteListener).create().show();
-
+			AlertDialogUtils.create(context, "提示", "确定删除“" + city + "”吗？",
+					"确定", deleteListener).show();
 		}
 
 	}
