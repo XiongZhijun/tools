@@ -15,7 +15,6 @@ public class HerodApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		ResourcesUtils.setApplication(this);
 	}
 
 }
