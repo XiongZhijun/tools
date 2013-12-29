@@ -5,7 +5,8 @@
 package org.herod.simpleweather;
 
 import org.herod.android.lang.SheduleTaskUtils;
-import org.herod.simpleweather.LocationHelper.OnLocationSuccessListener;
+import org.herod.android.lbs.LocationHelper;
+import org.herod.android.lbs.LocationHelper.OnLocationSuccessListener;
 import org.herod.simpleweather.model.CityWeather;
 import org.herod.simpleweather.model.WeatherData;
 
