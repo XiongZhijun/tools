@@ -20,6 +20,8 @@ import android.content.Context;
  * 
  */
 public class WeatherData {
+	/**  */
+	private static final int MILLISECOND_OF_ONE_DAY = 1000 * 60 * 60 * 24;
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM月dd日");
 	private Date date;
 	private String temperature;
@@ -126,14 +128,14 @@ public class WeatherData {
 	}
 
 	public int getNightPictureResource(Context context) {
-		int id = ResourcesUtils.getResourcesIdByType(context,getNightPictureUrl(),
-				"drawable");
+		int id = ResourcesUtils.getResourcesIdByType(context,
+				getNightPictureUrl(), "drawable");
 		return id > 0 ? id : R.drawable.n00;
 	}
 
 	public int getDayPictureResource(Context context) {
-		int id = ResourcesUtils.getResourcesIdByType(context,getDayPictureUrl(),
-				"drawable");
+		int id = ResourcesUtils.getResourcesIdByType(context,
+				getDayPictureUrl(), "drawable");
 		return id > 0 ? id : R.drawable.d00;
 	}
 
@@ -145,24 +147,17 @@ public class WeatherData {
 	}
 
 	public boolean isToday() {
-		Calendar now = Calendar.getInstance();
-		Calendar weatherDate = Calendar.getInstance();
-		weatherDate.setTime(date);
-		return equals(Calendar.YEAR, now, weatherDate)
-				&& equals(Calendar.MONTH, now, weatherDate)
-				&& equals(Calendar.DAY_OF_MONTH, now, weatherDate);
+		Date now = new Date();
+		return toDayNumber(now) == toDayNumber(date);
+	}
+
+	public boolean isBeforeToday() {
+		Date now = new Date();
+		return toDayNumber(now) > toDayNumber(date);
 	}
 
 	public boolean isNotBeforeToday() {
-		if (isToday()) {
-			return true;
-		}
-		Calendar now = Calendar.getInstance();
-		Calendar weatherDate = Calendar.getInstance();
-		weatherDate.setTime(date);
-		return lt(Calendar.YEAR, now, weatherDate)
-				|| lt(Calendar.MONTH, now, weatherDate)
-				|| lt(Calendar.DAY_OF_MONTH, now, weatherDate);
+		return !isBeforeToday();
 	}
 
 	public static boolean lt(int field, Calendar date1, Calendar date2) {
@@ -171,6 +166,10 @@ public class WeatherData {
 
 	public static boolean equals(int field, Calendar date1, Calendar date2) {
 		return date1.get(field) == date2.get(field);
+	}
+
+	private static int toDayNumber(Date date) {
+		return (int) (date.getTime() / MILLISECOND_OF_ONE_DAY);
 	}
 
 }

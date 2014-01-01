@@ -4,12 +4,14 @@
  */
 package org.herod.simpleweather.test;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.herod.simpleweather.model.WeatherData;
 
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 /**
  * @author Xiong Zhijun
@@ -17,6 +19,8 @@ import android.test.AndroidTestCase;
  * 
  */
 public class WeatherDataTest extends AndroidTestCase {
+
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd");
 
 	public void testByToday() {
 		WeatherData weatherData = new WeatherData();
@@ -38,6 +42,7 @@ public class WeatherDataTest extends AndroidTestCase {
 		WeatherData weatherData = new WeatherData();
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MONTH, -1);
+		Log.d("TEST", simpleDateFormat.format(calendar.getTime()));
 		weatherData.setDate(calendar.getTime());
 		assertFalse(weatherData.isToday());
 		assertFalse(weatherData.isNotBeforeToday());
@@ -77,5 +82,16 @@ public class WeatherDataTest extends AndroidTestCase {
 		weatherData.setDate(calendar.getTime());
 		assertFalse(weatherData.isToday());
 		assertTrue(weatherData.isNotBeforeToday());
+	}
+
+	public void testByNewYear() {
+		WeatherData weatherData = new WeatherData();
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, 2013);
+		calendar.set(Calendar.MONTH, Calendar.DECEMBER);
+		calendar.set(Calendar.DAY_OF_MONTH, 31);
+		weatherData.setDate(calendar.getTime());
+		assertFalse(weatherData.isToday());
+		assertFalse(weatherData.isNotBeforeToday());
 	}
 }
