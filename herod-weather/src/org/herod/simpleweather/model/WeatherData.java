@@ -169,7 +169,13 @@ public class WeatherData {
 	}
 
 	private static int toDayNumber(Date date) {
-		return (int) (date.getTime() / MILLISECOND_OF_ONE_DAY);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.MILLISECOND, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		return (int) (calendar.getTime().getTime() / MILLISECOND_OF_ONE_DAY);
 	}
 
 }
