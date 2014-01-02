@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.herod.android.lang.AbstractAdapter;
+import org.herod.android.lang.ActivityUtils;
 import org.herod.android.lang.AlertDialogUtils;
 import org.herod.android.lang.ViewHelper;
 
@@ -20,6 +21,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Loader;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -39,8 +41,11 @@ public class CityManagerActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cities_activity);
+		setTitle("城市管理");
 		listView = (ListView) findViewById(R.id.listView);
+		ActivityUtils.showBackAction(this, true);
 	}
+
 
 	@Override
 	protected void onStart() {
@@ -60,6 +65,14 @@ public class CityManagerActivity extends Activity implements
 
 	@Override
 	public void onLoaderReset(Loader<List<String>> loader) {
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
+			return true;
+		}
+		return false;
 	}
 
 	public void addCity(View v) {
