@@ -9,11 +9,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.herod.android.lang.AbstractAdapter;
-import org.herod.android.lang.ActivityUtils;
-import org.herod.android.lang.AlertDialogUtils;
-import org.herod.android.lang.ViewHelper;
-
+import os.cherry.android.lang.AbstractAdapter;
+import os.cherry.android.lang.ActivityUtils;
+import os.cherry.android.lang.AlertDialogUtils;
+import os.cherry.android.lang.ViewHelper;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.AsyncTaskLoader;

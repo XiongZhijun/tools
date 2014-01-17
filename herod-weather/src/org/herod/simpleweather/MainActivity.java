@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.herod.android.indicator.TabPageIndicator;
-import org.herod.android.lang.AlertDialogUtils;
-import org.herod.android.lbs.LocationHelper;
-import org.herod.android.lbs.LocationHelper.OnLocationSuccessListener;
-
+import os.cherry.android.indicator.TabPageIndicator;
+import os.cherry.android.lang.AlertDialogUtils;
+import os.cherry.android.lbs.LocationHelper;
+import os.cherry.android.lbs.LocationHelper.OnLocationSuccessListener;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;

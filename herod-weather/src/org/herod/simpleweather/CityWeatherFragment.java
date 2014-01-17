@@ -4,12 +4,12 @@
  */
 package org.herod.simpleweather;
 
-import org.herod.android.lang.AbstractAdapter;
-import org.herod.android.lang.AlertDialogUtils;
-import org.herod.android.lang.ViewHelper;
 import org.herod.simpleweather.model.CityWeather;
 import org.herod.simpleweather.model.WeatherData;
 
+import os.cherry.android.lang.AbstractAdapter;
+import os.cherry.android.lang.AlertDialogUtils;
+import os.cherry.android.lang.ViewHelper;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;

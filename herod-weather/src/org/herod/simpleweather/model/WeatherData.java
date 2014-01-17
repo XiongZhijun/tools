@@ -9,9 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.herod.android.lang.ResourcesUtils;
 import org.herod.simpleweather.R;
 
+import os.cherry.android.lang.ResourcesUtils;
 import android.content.Context;
 
 /**

@@ -4,12 +4,12 @@
  */
 package org.herod.simpleweather;
 
-import org.herod.android.lang.SheduleTaskUtils;
-import org.herod.android.lbs.LocationHelper;
-import org.herod.android.lbs.LocationHelper.OnLocationSuccessListener;
 import org.herod.simpleweather.model.CityWeather;
 import org.herod.simpleweather.model.WeatherData;
 
+import os.cherry.android.lang.SheduleTaskUtils;
+import os.cherry.android.lbs.LocationHelper;
+import os.cherry.android.lbs.LocationHelper.OnLocationSuccessListener;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.Service;
